@@ -5,20 +5,16 @@
   "scripts": {
     "build": "run-p build:client build:server",
     "build:client": "parcel build src/client/index.tsx",
-    "build:server": "parcel build src/server/index.tsx",
-
+    "build:server": "parcel build src/server/index.ts",
     "lint": "run-p lint:client lint:server",
     "lint:client": "eslint src/client --ext .ts,.tsx",
     "lint:server": "eslint src/server --ext .ts",
-
     "start": "run-p start:client start:server",
     "start:client": "parcel src/client/index.tsx",
     "start:server": "parcel src/server/index.ts",
-
     "test": "jest",
     "test:client": "cross-env JEST_PROJECT=client jest",
     "test:server": "cross-env JEST_PROJECT=server jest",
-
     "tsc": "run-p tsc:client tsc:server",
     "tsc:client": "tsc --noEmit -p tsconfig.client.json",
     "tsc:server": "tsc --noEmit -p tsconfig.server.json"
@@ -51,6 +47,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "fastify": "^2.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }

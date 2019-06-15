@@ -90,7 +90,7 @@ jobs:
   #
   # Code Coverage
   #
-  code-coverage:
+  test:coverage:
     <<: *js-env
     steps:
       - checkout
@@ -135,7 +135,7 @@ workflows:
       #
       # Code Coverage
       #
-      - code-coverage:
+      - test:coverage:
           requires:
             - setup
             - test:client
