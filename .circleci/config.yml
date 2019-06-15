@@ -1,0 +1,69 @@
+version: 2 # use CircleCI 2.0
+
+references:
+  js-env: &js-env
+    docker:
+      - image: circleci/node:12.4.0
+    working-directory: ~/react-ts-starter
+  restore-node-modules: &restore-node-modules
+    restore-cache:
+      key: node-modules-{{ checksum "yarn.lock" }}
+  save-node-modules: &save-node-modules
+    save-cache:
+      key: node-modules-{{ checksum "yarn.lock" }}
+      paths:
+        - ./node_modules
+
+jobs:
+  setup:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: js:install
+          command: yarn
+      - *save-node-modules
+  type-checker:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: lint:tsc
+          command: yarn lint:tsc
+  lint:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: lint:tsx
+          command: yarn lint:tsx
+  test:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: test
+          command: yarn test --coverage
+      - run:
+          name: codecov
+          command: yarn codecov -f coverage/*.json
+workflows:
+  version: 2
+  js-ci:
+    jobs:
+      - setup
+      - type-checker:
+          requires:
+            - setup
+      - lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+            - type-checker
+            - lint
