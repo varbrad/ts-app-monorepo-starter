@@ -3,15 +3,15 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "run-p client:build server:build",
+    "build": "run-p build:client build:server",
     "build:client": "parcel build src/client/index.tsx",
     "build:server": "parcel build src/server/index.tsx",
 
-    "lint": "run-p client:lint server:lint",
+    "lint": "run-p lint:client lint:server",
     "lint:client": "eslint src/client --ext .ts,.tsx",
     "lint:server": "eslint src/server --ext .ts",
 
-    "start": "run-p client:start server:start",
+    "start": "run-p start:client start:server",
     "start:client": "parcel src/client/index.tsx",
     "start:server": "parcel src/server/index.ts",
 
@@ -19,7 +19,7 @@
     "test:client": "cross-env JEST_PROJECT=client jest",
     "test:server": "cross-env JEST_PROJECT=server jest",
 
-    "tsc": "run-p client:tsc server:tsc",
+    "tsc": "run-p tsc:client tsc:server",
     "tsc:client": "tsc src/client --noEmit",
     "tsc:server": "tsc src/server --noEmit"
   },

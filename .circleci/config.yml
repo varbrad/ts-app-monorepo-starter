@@ -70,11 +70,11 @@ workflows:
       #
       - lint:client
         requires:
-            - setup
+          - setup
       - test:client
         requires:
-            - setup
-            - lint:client
+          - setup
+          - lint:client
       #
       # Code Coverage
       #
