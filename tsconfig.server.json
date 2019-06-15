@@ -1,8 +1,10 @@
 {
+  "include": [
+    "src/server/**/*"
+  ],
   "compilerOptions": {
     "esModuleInterop": true,
-    "jsx": "react",
-    "lib": ["es2018", "dom"],
+    "lib": ["es2018"],
     "sourceMap": true,
     "resolveJsonModule": true
   }

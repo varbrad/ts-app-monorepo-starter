@@ -20,8 +20,8 @@
     "test:server": "cross-env JEST_PROJECT=server jest",
 
     "tsc": "run-p tsc:client tsc:server",
-    "tsc:client": "tsc src/client --noEmit",
-    "tsc:server": "tsc src/server --noEmit"
+    "tsc:client": "tsc --noEmit -p tsconfig.client.json",
+    "tsc:server": "tsc --noEmit -p tsconfig.server.json"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
