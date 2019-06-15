@@ -68,18 +68,28 @@ workflows:
       #
       # Client steps
       #
-      - lint:client
-        requires:
-          - setup
+      - lint-client
+          requires:
+            - setup
       - test:client
-        requires:
-          - setup
-          - lint:client
+          requires:
+            - setup
+            - lint:client
+      #
+      #
+      #
+      - lint:server
+          requires:
+            - setup
+      - test:server
+          requires:
+            - setup
+            - lint:server
       #
       # Code Coverage
       #
       - coverage:
           requires:
             - setup
-            - lint:client
             - test:client
+            - test:server
