@@ -1,16 +1,23 @@
-# React TypeScript Starter
+# TypeScript Web App Starter
 
-![CircleCI](https://img.shields.io/circleci/build/github/varbrad/react-ts-starter.svg?style=for-the-badge)
-![Codecov](https://img.shields.io/codecov/c/github/varbrad/react-ts-starter.svg?style=for-the-badge)
+![CircleCI](https://img.shields.io/circleci/build/github/varbrad/ts-app-monorepo-starter.svg?style=for-the-badge)
+![Codecov](https://img.shields.io/codecov/c/github/varbrad/ts-app-monorepo-starter.svg?style=for-the-badge)
 
-A starting point for React projects written in TypeScript
+A starting point for client/server TypeScript web-app projects
 
 ## Includes
 
-- React 16.8
 - TypeScript 3.5
+- Parcel Bundler (For both API & Web)
 - Jest 24 w/ TypeScript Integration
-- React Testing Library
 - ESLint + Prettier (with full TS/TSX support)
-- Parcel Bundler
 - CircleCI example config
+
+### Server
+
+- Fastify
+
+### Client
+
+- React 16.8
+- React Testing Library

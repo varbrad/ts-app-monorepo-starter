@@ -3,12 +3,23 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "parcel build src/index.html",
-    "lint": "run-p -n lint:tsc lint:tsx",
-    "lint:tsc": "tsc --noEmit",
-    "lint:tsx": "eslint src --ext .ts,.tsx",
-    "start": "parcel src/index.html",
-    "test": "jest"
+    "client:build": "parcel build src/client/index.tsx",
+    "client:lint": "eslint src/client --ext .ts,.tsx",
+    "client:start": "parcel src/client/index.tsx",
+    "client:test": "cross-env JEST_PROJECT=client jest",
+    "client:tsc": "tsc src/client --noEmit",
+
+    "server:build": "parcel build src/server/index.tsx",
+    "server:lint": "eslint src/server --ext .ts",
+    "server:start": "parcel src/server/index.tsx",
+    "server:test": "cross-env JEST_PROJECT=server jest",
+    "server:tsc": "tsc src/server --noEmit",
+
+    "build": "run-p client:build server:build",
+    "lint": "run-p client:lint server:lint",
+    "start": "run-p client:start server:start",
+    "test": "jest",
+    "tsc": "run-p client:tsc server:tsc"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
@@ -23,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "codecov": "^3.5.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.17.3",
