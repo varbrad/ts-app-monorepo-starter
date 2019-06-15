@@ -2,6 +2,11 @@ const config = {
   client: {
     displayName: 'client',
     preset: 'ts-jest',
+    globals: {
+      'ts-jest': {
+        tsConfig: 'tsconfig.client.json',
+      },
+    },
     testEnvironment: 'jsdom',
     testMatch: ['<rootDir>/src/client/**/__tests__/**/*.test.ts?(x)'],
     collectCoverageFrom: [
@@ -14,6 +19,11 @@ const config = {
   server: {
     displayName: 'server',
     preset: 'ts-jest',
+    globals: {
+      'ts-jest': {
+        tsConfig: 'tsconfig.server.json',
+      },
+    },
     testEnvironment: 'node',
     testMatch: ['<rootDir>/src/server/**/__tests__/**/*.test.ts'],
     collectCoverageFrom: [
