@@ -15,10 +15,11 @@ references:
         - ./node_modules
 
 jobs:
+  #
   # Setup jobs
+  #
   setup:
     <<: *js-env
-    name: Setup
     steps:
       - checkout
       - *restore-node-modules
@@ -26,10 +27,11 @@ jobs:
           name: js:install
           command: yarn
       - *save-node-modules
+  #
   # Client jobs
+  #
   lint:client:
     <<: *js-env
-    name: Lint
     steps:
       - checkout
       - *restore-node-modules
@@ -37,9 +39,17 @@ jobs:
           name: js:lint:client
           command: yarn lint:client
       - *save-node-modules
+  tsc:client:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: js:tsc:client
+          command: yarn tsc:client
+      - *save-node-modules
   test:client:
     <<: *js-env
-    name: Test
     steps:
       - checkout
       - *restore-node-modules
@@ -47,10 +57,41 @@ jobs:
           name: js:test:client
           command: yarn test:client
       - *save-node-modules
-  # Code Coverage
-  coverage:
+  #
+  # Server jobs
+  #
+  lint:server:
     <<: *js-env
-    name: Code Coverage
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: js:lint:server
+          command: yarn lint:server
+      - *save-node-modules
+  tsc:server:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: js:tsc:server
+          command: yarn tsc:server
+      - *save-node-modules
+  test:server:
+    <<: *js-env
+    steps:
+      - checkout
+      - *restore-node-modules
+      - run:
+          name: js:test:server
+          command: yarn test:server
+      - *save-node-modules
+  #
+  # Code Coverage
+  #
+  code-coverage:
+    <<: *js-env
     steps:
       - checkout
       - *restore-node-modules
@@ -71,24 +112,30 @@ workflows:
       - lint:client:
           requires:
             - setup
+      - tsc:client:
+          requires:
+            - setup
       - test:client:
           requires:
             - setup
-            - lint:client
+            - tsc:client
       #
       #
       #
       - lint:server:
           requires:
             - setup
+      - tsc:server:
+          requires:
+            - setup
       - test:server:
           requires:
             - setup
-            - lint:server
+            - tsc:server
       #
       # Code Coverage
       #
-      - coverage:
+      - code-coverage:
           requires:
             - setup
             - test:client
