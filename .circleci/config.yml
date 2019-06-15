@@ -4,7 +4,7 @@ references:
   js-env: &js-env
     docker:
       - image: circleci/node:12.4.0
-    working-directory: ~/react-ts-starter
+    working-directory: ~/ts-web-app-starter
   restore-node-modules: &restore-node-modules
     restore-cache:
       key: node-modules-{{ checksum "yarn.lock" }}
@@ -15,8 +15,10 @@ references:
         - ./node_modules
 
 jobs:
+  # Setup jobs
   setup:
     <<: *js-env
+    name: Setup
     steps:
       - checkout
       - *restore-node-modules
@@ -24,24 +26,31 @@ jobs:
           name: js:install
           command: yarn
       - *save-node-modules
-  type-checker:
+  # Client jobs
+  lint:client:
     <<: *js-env
+    name: Lint
     steps:
       - checkout
       - *restore-node-modules
       - run:
-          name: lint:tsc
-          command: yarn lint:tsc
-  lint:
+          name: js:lint:client
+          command: yarn lint:client
+      - *save-node-modules
+  test:client:
     <<: *js-env
+    name: Test
     steps:
       - checkout
       - *restore-node-modules
       - run:
-          name: lint:tsx
-          command: yarn lint:tsx
-  test:
+          name: js:test:client
+          command: yarn test:client
+      - *save-node-modules
+  # Code Coverage
+  coverage:
     <<: *js-env
+    name: Code Coverage
     steps:
       - checkout
       - *restore-node-modules
@@ -56,14 +65,21 @@ workflows:
   js-ci:
     jobs:
       - setup
-      - type-checker:
+      #
+      # Client steps
+      #
+      - lint:client
+        requires:
+            - setup
+      - test:client
+        requires:
+            - setup
+            - lint:client
+      #
+      # Code Coverage
+      #
+      - coverage:
           requires:
             - setup
-      - lint:
-          requires:
-            - setup
-      - test:
-          requires:
-            - setup
-            - type-checker
-            - lint
+            - lint:client
+            - test:client

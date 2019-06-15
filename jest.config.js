@@ -3,7 +3,7 @@ const config = {
     displayName: 'client',
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
-    testMatch: ['<rootDir>/src/client/**/__tests__/**/*.ts?(x)'],
+    testMatch: ['<rootDir>/src/client/**/__tests__/**/*.test.ts?(x)'],
     collectCoverageFrom: [
       'src/client/**',
       '!**/node_modules/**',
@@ -15,7 +15,7 @@ const config = {
     displayName: 'server',
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: ['<rootDir>/src/server/**/__tests__/**/*.ts'],
+    testMatch: ['<rootDir>/src/server/**/__tests__/**/*.test.ts'],
     collectCoverageFrom: [
       'src/server/**',
       '!**/node_modules/**',
@@ -30,6 +30,12 @@ const jestConfig = project
   ? config[project]
   : {
       projects: Object.values(config),
+      collectCoverageFrom: [
+        'src/**/*.{ts,tsx}',
+        '!src/**/*.test.{ts,tsx}',
+        '!**/node_modules/**',
+        '!**/vendor/**',
+      ],
     };
 
 module.exports = jestConfig;

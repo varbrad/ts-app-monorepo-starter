@@ -3,23 +3,25 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "client:build": "parcel build src/client/index.tsx",
-    "client:lint": "eslint src/client --ext .ts,.tsx",
-    "client:start": "parcel src/client/index.tsx",
-    "client:test": "cross-env JEST_PROJECT=client jest",
-    "client:tsc": "tsc src/client --noEmit",
-
-    "server:build": "parcel build src/server/index.tsx",
-    "server:lint": "eslint src/server --ext .ts",
-    "server:start": "parcel src/server/index.tsx",
-    "server:test": "cross-env JEST_PROJECT=server jest",
-    "server:tsc": "tsc src/server --noEmit",
-
     "build": "run-p client:build server:build",
+    "build:client": "parcel build src/client/index.tsx",
+    "build:server": "parcel build src/server/index.tsx",
+
     "lint": "run-p client:lint server:lint",
+    "lint:client": "eslint src/client --ext .ts,.tsx",
+    "lint:server": "eslint src/server --ext .ts",
+
     "start": "run-p client:start server:start",
+    "start:client": "parcel src/client/index.tsx",
+    "start:server": "parcel src/server/index.ts",
+
     "test": "jest",
-    "tsc": "run-p client:tsc server:tsc"
+    "test:client": "cross-env JEST_PROJECT=client jest",
+    "test:server": "cross-env JEST_PROJECT=server jest",
+
+    "tsc": "run-p client:tsc server:tsc",
+    "tsc:client": "tsc src/client --noEmit",
+    "tsc:server": "tsc src/server --noEmit"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
