@@ -68,7 +68,7 @@ workflows:
       #
       # Client steps
       #
-      - lint-client:
+      - lint:client:
           requires:
             - setup
       - test:client:
