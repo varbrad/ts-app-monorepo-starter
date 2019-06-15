@@ -68,20 +68,20 @@ workflows:
       #
       # Client steps
       #
-      - lint-client
+      - lint-client:
           requires:
             - setup
-      - test:client
+      - test:client:
           requires:
             - setup
             - lint:client
       #
       #
       #
-      - lint:server
+      - lint:server:
           requires:
             - setup
-      - test:server
+      - test:server:
           requires:
             - setup
             - lint:server
