@@ -9,11 +9,6 @@ const config = {
     },
     testEnvironment: 'jsdom',
     testMatch: ['<rootDir>/src/client/**/__tests__/**/*.test.ts?(x)'],
-    collectCoverageFrom: [
-      'src/client/**',
-      '!**/node_modules/**',
-      '!**/vendor/**',
-    ],
     setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
   },
   server: {
@@ -26,11 +21,6 @@ const config = {
     },
     testEnvironment: 'node',
     testMatch: ['<rootDir>/src/server/**/__tests__/**/*.test.ts'],
-    collectCoverageFrom: [
-      'src/server/**',
-      '!**/node_modules/**',
-      '!**/vendor/**',
-    ],
   },
 };
 
@@ -43,6 +33,7 @@ const jestConfig = project
       collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
         '!src/**/*.test.{ts,tsx}',
+        '!src/client/index.tsx',
         '!**/node_modules/**',
         '!**/vendor/**',
       ],
