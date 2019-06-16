@@ -1,12 +1,12 @@
 import fastify from 'fastify';
 
-const app = fastify();
+export const createApp = (): fastify.FastifyInstance => {
+  const app = fastify();
 
-app.get(
-  '/',
-  async (): Promise<object> => {
-    return { status: 50 };
-  },
-);
+  app.get(
+    '/',
+    async (): Promise<object> => ({ status: 200, data: 'Hello, world!' }),
+  );
 
-export default app;
+  return app;
+};
