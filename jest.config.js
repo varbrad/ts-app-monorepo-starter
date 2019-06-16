@@ -33,7 +33,7 @@ const jestConfig = project
       collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
         '!src/**/*.test.{ts,tsx}',
-        '!src/client/index.tsx',
+        '!src/{client,server}/index.{ts,tsx}',
         '!**/node_modules/**',
         '!**/vendor/**',
       ],
